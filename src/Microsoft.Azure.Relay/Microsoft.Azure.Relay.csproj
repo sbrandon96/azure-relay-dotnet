@@ -1,61 +1,67 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Description>This is the Azure Relay .NET Standard client library for Hybrid Connections. For more information about Relay see https://azure.microsoft.com/en-us/services/service-bus/.
-      This package is only supported on Windows 8 / Windows Server 2012 and newer.</Description>
-    <AssemblyTitle>Microsoft.Azure.Relay</AssemblyTitle>
-    <Authors>Microsoft</Authors>
-    <copyright>&#169; Microsoft Corporation. All rights reserved.</copyright>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net461</TargetFrameworks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DebugType>full</DebugType>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Microsoft.Azure.Relay</AssemblyName>
-    <PackageId>Microsoft.Azure.Relay</PackageId>
-    <PackageTags>Azure;Relay;.NET;Web socket;websocket;hybrid connection;hybrid connections;ServiceBus;Service Bus</PackageTags>
-    <PackageReleaseNotes>https://github.com/Azure/azure-relay-dotnet/releases</PackageReleaseNotes>
-    <PackageIcon>relay.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/Azure/azure-relay-dotnet</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <GenerateAssemblyConfigurationAttribute>true</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>true</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>true</GenerateAssemblyProductAttribute>
-    <Version>3.1.0</Version>
-    <IsPackable>True</IsPackable>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Description>
+			This is the Azure Relay .NET Standard client library for Hybrid Connections. For more information about Relay see https://azure.microsoft.com/en-us/services/service-bus/.
+			This package is only supported on Windows 8 / Windows Server 2012 and newer.
+		</Description>
+		<AssemblyTitle>Microsoft.Azure.Relay</AssemblyTitle>
+		<Authors>Microsoft</Authors>
+		<copyright>&#169; Microsoft Corporation. All rights reserved.</copyright>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);net461</TargetFrameworks>
+		<TargetFrameworks>$(TargetFrameworks);net8.0</TargetFrameworks>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>full</DebugType>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<AssemblyName>Microsoft.Azure.Relay</AssemblyName>
+		<PackageId>Microsoft.Azure.Relay</PackageId>
+		<PackageTags>Azure;Relay;.NET;Web socket;websocket;hybrid connection;hybrid connections;ServiceBus;Service Bus</PackageTags>
+		<PackageReleaseNotes>https://github.com/Azure/azure-relay-dotnet/releases</PackageReleaseNotes>
+		<PackageIcon>relay.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/Azure/azure-relay-dotnet</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<GenerateAssemblyConfigurationAttribute>true</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>true</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>true</GenerateAssemblyProductAttribute>
+		<Version>3.1.0</Version>
+		<IsPackable>True</IsPackable>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
 
-  <!-- .NET Framework specific -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Compile Remove="WebSockets\**\*.cs" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Update="Strings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<!-- .NET Framework specific -->
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+		<Compile Remove="WebSockets\**\*.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\..\relay.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Strings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Strings.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Strings.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Strings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="9.0.8" />
-    <PackageReference Include="Azure.Identity" Version="1.11.4" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.36.0" />
-  </ItemGroup>    
+	<ItemGroup>
+		<None Include="..\..\relay.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' != 'net8.0'">
+		<PackageReference Include="System.Text.Json" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Identity" Version="1.11.4" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.36.0" />
+	</ItemGroup>
 
 </Project>
